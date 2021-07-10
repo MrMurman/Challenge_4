@@ -13,6 +13,8 @@
 		95C673B8269A1F2B0049EE10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95C673B6269A1F2B0049EE10 /* Main.storyboard */; };
 		95C673BA269A1F2C0049EE10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95C673B9269A1F2C0049EE10 /* Assets.xcassets */; };
 		95C673BD269A1F2C0049EE10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95C673BB269A1F2C0049EE10 /* LaunchScreen.storyboard */; };
+		95C673C5269A24740049EE10 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C673C4269A24740049EE10 /* DetailViewController.swift */; };
+		95C673C7269A270B0049EE10 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C673C6269A270B0049EE10 /* Photo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		95C673B9269A1F2C0049EE10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		95C673BC269A1F2C0049EE10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		95C673BE269A1F2C0049EE10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95C673C4269A24740049EE10 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		95C673C6269A270B0049EE10 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,9 +64,11 @@
 				95C673B2269A1F2B0049EE10 /* SceneDelegate.swift */,
 				95C673B4269A1F2B0049EE10 /* ViewController.swift */,
 				95C673B6269A1F2B0049EE10 /* Main.storyboard */,
+				95C673C4269A24740049EE10 /* DetailViewController.swift */,
 				95C673B9269A1F2C0049EE10 /* Assets.xcassets */,
 				95C673BB269A1F2C0049EE10 /* LaunchScreen.storyboard */,
 				95C673BE269A1F2C0049EE10 /* Info.plist */,
+				95C673C6269A270B0049EE10 /* Photo.swift */,
 			);
 			path = Challenge_4;
 			sourceTree = "<group>";
@@ -141,6 +147,8 @@
 				95C673B5269A1F2B0049EE10 /* ViewController.swift in Sources */,
 				95C673B1269A1F2B0049EE10 /* AppDelegate.swift in Sources */,
 				95C673B3269A1F2B0049EE10 /* SceneDelegate.swift in Sources */,
+				95C673C5269A24740049EE10 /* DetailViewController.swift in Sources */,
+				95C673C7269A270B0049EE10 /* Photo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
