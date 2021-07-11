@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
 struct Photo: Codable {
-    var name: String
+    var imageName: String
     var caption: String
 }

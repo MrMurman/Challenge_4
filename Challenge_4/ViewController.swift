@@ -9,6 +9,9 @@ import UIKit
 
 class ViewController: UITableViewController {
 
+    let defaults = UserDefaults.standard
+    let decoder = JSONDecoder()
+    
     var photos = [Photo]()
     
     override func viewDidLoad() {
@@ -16,6 +19,14 @@ class ViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPhoto))
         
         
+        if let savedPhotos = defaults.object(forKey: "photos") as? Data{
+            if let savedData = try? decoder.decode([Photo].self, from: savedPhotos) {
+                photos = savedData
+                //tableView.reloadData()
+            }
+        }
+        
+        tableView.reloadData()
     }
 
 
@@ -25,12 +36,16 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Photo", for: indexPath)
-        var configuration = cell.defaultContentConfiguration()
         
-        configuration.text = photos[indexPath.row].caption
-        configuration.image = UIImage(named: photos[indexPath.row].name)
+        cell.textLabel?.text = photos[indexPath.row].caption
+        cell.detailTextLabel?.text = photos[indexPath.row].imageName
+        cell.detailTextLabel?.textColor = .lightGray
+        //var configuration = cell.defaultContentConfiguration()
         
-        cell.contentConfiguration = configuration
+        //configuration.text = photos[indexPath.row].caption
+        //configuration.image = UIImage(named: photos[indexPath.row].imageName)
+        
+        //cell.contentConfiguration = configuration
         return cell
     }
     
@@ -38,7 +53,8 @@ class ViewController: UITableViewController {
         
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Detail") as! DetailViewController
         vc.title = photos[indexPath.row].caption
-        vc.selectedImage = photos[indexPath.row].name
+        vc.selectedImage = photos[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     
@@ -59,5 +75,56 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         present(picker, animated: true)
     }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.editedImage] as? UIImage else {return}
+       
+        var caption = String()
+        
+        let imageName = UUID().uuidString
+        let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
+        
+        if let jpegData = image.jpegData(compressionQuality: 0.8) {
+            try? jpegData.write(to: imagePath)
+        }
+        
+//        let ac = UIAlertController(title: "Enter Photo Name", message: nil, preferredStyle: .alert)
+//        ac.addTextField() {textfield in
+//            textfield.placeholder = "Name"
+//        }
+//        ac.addAction(UIAlertAction(title: "Save", style: .default) { _ in
+//            guard let inputText = ac.textFields?[0].text else {
+//                caption = ""
+//                return
+//            }
+//            caption = inputText
+//        })
+//        present(ac, animated: true)
+        
+        
+        let photo = Photo(imageName: imageName, caption: "NoName")
+        photos.append(photo)
+        savePhotos()
+        tableView.reloadData()
+        dismiss(animated: true, completion: nil)
+        
+        
+    }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func savePhotos() {
+        let defaults = UserDefaults.standard
+        let encoder = JSONEncoder()
+        
+        if let dataToSave = try? encoder.encode(photos) {
+            defaults.set(dataToSave, forKey: "photos")
+        }
+    }
 }
